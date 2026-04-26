@@ -107,8 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateClock() {
-        // Use dynamically synced network time to ensure precision
-        const now = new Date(Date.now() + timeOffsetMs);
+        // Use dynamically synced network time + 500ms manual offset
+        const now = new Date(Date.now() + timeOffsetMs + 500);
         const stdHour = now.getHours();
         const minute = now.getMinutes();
         const second = now.getSeconds();
