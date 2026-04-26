@@ -1,0 +1,207 @@
+:root {
+    --text-color: rgba(255, 255, 255, 0.95);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+    overflow: hidden;
+    position: relative;
+    background-color: #0c0f12;
+    transition: background-color 1.5s ease;
+}
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    transition: opacity 1.5s ease-in-out, background 1.5s ease-in-out;
+}
+
+/* Background states for each period */
+.background-overlay.night { background: linear-gradient(135deg, #0b1016, #162436, #213c4c); }
+.background-overlay.overnight { background: linear-gradient(135deg, #050505, #080c14, #120921); }
+.background-overlay.morning { background: linear-gradient(135deg, #fc4a1a, #f7b733); }
+.background-overlay.forenoon { background: linear-gradient(135deg, #2193b0, #6dd5ed); }
+.background-overlay.midday { background: linear-gradient(135deg, #f12711, #f5af19); }
+.background-overlay.evening { background: linear-gradient(135deg, #FF416C, #FF4B2B); }
+
+/* Add animated floating orbs for premium feel */
+.background-overlay::before,
+.background-overlay::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.6;
+    animation: drift 15s infinite alternate ease-in-out;
+}
+
+.background-overlay::before {
+    width: 450px;
+    height: 450px;
+    background: rgba(255, 255, 255, 0.15);
+    top: -150px;
+    left: -100px;
+}
+
+.background-overlay::after {
+    width: 550px;
+    height: 550px;
+    background: rgba(255, 255, 255, 0.1);
+    bottom: -200px;
+    right: -100px;
+    animation-delay: -7.5s;
+}
+
+@keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 50px) scale(1.1); }
+}
+
+.clock-container {
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+    width: 100%;
+    max-width: 650px;
+    perspective: 1000px;
+}
+
+.clock-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    padding: 4rem 3rem;
+    text-align: center;
+    box-shadow: 0 30px 60px var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.2);
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.clock-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.period-name {
+    font-size: 1.6rem;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.time-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-size: 5.5rem;
+    font-weight: 700;
+    text-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    line-height: 1;
+}
+
+.emoji {
+    font-size: 4.5rem;
+    margin-right: 0.8rem;
+    animation: float 4s infinite alternate ease-in-out;
+    display: inline-block;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-12px); }
+}
+
+.time-short {
+    font-size: 3.5rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.time-hours,
+.time-minutes,
+.time-seconds {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -2px;
+}
+
+.colon {
+    margin: 0 0.3rem;
+    opacity: 0.8;
+    animation: blink 1s infinite step-start;
+}
+
+@keyframes blink {
+    50% { opacity: 0.3; }
+}
+
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    margin: 2.5rem 0 2rem;
+}
+
+.std-time-label {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0.6;
+    margin-bottom: 0.8rem;
+    font-weight: 300;
+}
+
+.std-time {
+    font-size: 1.8rem;
+    font-weight: 300;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.9;
+    letter-spacing: 2px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .clock-card { padding: 3rem 1.5rem; }
+    .time-display { font-size: 3.5rem; }
+    .emoji { font-size: 3rem; margin-right: 0.5rem; }
+    .time-short { font-size: 2.5rem; }
+    .period-name { font-size: 1.2rem; letter-spacing: 4px; }
+    .std-time { font-size: 1.4rem; }
+}
+
+/* Fallback sequential gradient animation */
+.background-overlay.fallback {
+    background: linear-gradient(270deg, #0b1016, #213c4c, #f7b733, #6dd5ed, #f5af19, #FF4B2B, #0b1016);
+    background-size: 1400% 1400%;
+    animation: continuousGradientCycle 45s ease infinite;
+}
+
+@keyframes continuousGradientCycle {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

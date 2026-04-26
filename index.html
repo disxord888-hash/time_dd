@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32-Hour Clock</title>
+    <meta name="description" content="A beautiful 32-hour system clock with dynamic daily themes.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-overlay" id="backgroundOverlay"></div>
+    <div class="clock-container">
+        <div class="clock-card">
+            <h2 id="periodFullName" class="period-name">--</h2>
+            <div class="time-display">
+                <span id="emoji" class="emoji"></span><span id="timeShort" class="time-short">--</span>
+                <span id="timeHours" class="time-hours">--</span><span class="colon">:</span><span id="timeMinutes" class="time-minutes">--</span><span class="colon">:</span><span id="timeSeconds" class="time-seconds">--</span>
+            </div>
+            
+            <div class="divider"></div>
+            <p class="std-time-label">Standard Time</p>
+            <p id="stdTime" class="std-time">--:--:--</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
